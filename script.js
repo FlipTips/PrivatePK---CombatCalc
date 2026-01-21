@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const fallback = document.createElement('div');
             fallback.className = 'logo-fallback';
             fallback.textContent = 'PK';
-            fallback.style.cssText = 'font-size: 2rem; font-weight: bold; color: #fff; padding: 10px 20px; background-color: rgba(255,255,255,0.2); border-radius: 8px;';
             this.parentElement.appendChild(fallback);
         });
     }
