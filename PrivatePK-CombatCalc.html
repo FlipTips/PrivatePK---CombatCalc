@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Combat Calculator</title>
+
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family:-apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      color:#ECEAF0;
+
+      /* OSRS neutral grey theme background */
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(900px 520px at 20% 15%, rgba(255,255,255,.03), transparent 60%),
+        radial-gradient(900px 520px at 80% 20%, rgba(255,255,255,.028), transparent 62%),
+        linear-gradient(180deg, #171A22 0%, #10131A 58%, #0B0D12 100%);
+    }
+
+    .wrap{ max-width: 920px; margin:0 auto; }
+
+    /* Header area like the screenshot (tall banner with centered title) */
+    .hero{
+      position:relative;
+      padding: 26px 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.72)),
+        radial-gradient(1200px 420px at 50% 0%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(180deg, rgba(46,52,64,.25), rgba(15,18,24,.85));
+    }
+
+    .heroInner{
+      max-width: 920px;
+      margin: 0 auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 10px;
+    }
+
+    .logoFrame{
+      width: min(560px, 92vw);
+      padding: 10px 12px;
+      border-radius: 14px;
+      background:
+        radial-gradient(900px 260px at 50% 35%, rgba(160,120,255,.12), transparent 62%),
+        radial-gradient(800px 240px at 50% 75%, rgba(255,215,120,.08), transparent 65%),
+        rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+    }
+
+    .logoFrame img{
+      width:100%;
+      height:auto;
+      max-height: 140px;
+      display:block;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 26px rgba(0,0,0,.60));
+    }
+
+    .heroTitle{
+      margin:0;
+      font-weight: 900;
+      font-size: clamp(38px, 8vw, 58px);
+      line-height: 1.05;
+      letter-spacing: .3px;
+      text-align:center;
+      text-shadow: 0 14px 40px rgba(0,0,0,.60);
+    }
+
+    .content{
+      padding: 18px 14px 46px;
+    }
+
+    /* Panel like a game UI window */
+    .panel{
+      border-radius: 14px;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(40,45,56,.70), rgba(16,19,26,.86)),
+        radial-gradient(900px 360px at 50% 0%, rgba(255,255,255,.05), transparent 60%);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 18px 70px rgba(0,0,0,.60);
+    }
+
+    /* Form layout similar to the screenshot: label left, big input right */
+    .form{
+      margin-top: 10px;
+      padding: 6px 0 0;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      align-items:center;
+      gap: 12px;
+    }
+
+    label{
+      font-size: 18px;
+      opacity: .92;
+    }
+
+    input{
+      width:100%;
+      padding: 16px 14px;
+      font-size: 20px;
+      color:#ECEAF0;
+      background: rgba(8,10,14,.40);
+      border: 2px solid rgba(255,255,255,.22);
+      border-radius: 0;
+      outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    input:focus{
+      border-color: rgba(242,193,78,.55);
+      box-shadow: 0 0 0 3px rgba(242,193,78,.10);
+    }
+
+    /* Button aligned right like your screenshot */
+    .btnRow{
+      display:flex;
+      justify-content:flex-end;
+      margin-top: 14px;
+    }
+
+    .btn{
+      padding: 14px 18px;
+      font-size: 20px;
+      cursor:pointer;
+      color:#fff;
+      border-radius: 0;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, #8A1214, #6D0D10);
+      box-shadow: 0 14px 34px rgba(0,0,0,.45);
+      min-width: 220px;
+    }
+
+    .btn:active{ transform: translateY(1px); }
+
+    .error{
+      margin-top:14px;
+      padding:12px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,120,120,.25);
+      background: rgba(255,70,70,.08);
+      color: rgba(255,190,190,.95);
+      display:none;
+      font-size:16px;
+    }
+
+    .result{
+      margin-top: 26px;
+      padding-top: 8px;
+    }
+
+    .bigLine{
+      font-size: clamp(40px, 7.6vw, 64px);
+      font-weight: 900;
+      line-height: 1.03;
+      margin: 0 0 14px 0;
+      text-shadow: 0 14px 40px rgba(0,0,0,.60);
+    }
+
+    .sub{
+      font-size: 24px;
+      opacity: .92;
+      margin: 0 0 12px 0;
+    }
+
+    ul{
+      margin: 10px 0 0 28px;
+      font-size: 26px;
+      line-height: 1.55;
+    }
+
+    .hint{
+      margin-top: 14px;
+      opacity: .70;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 560px){
+      .row{ grid-template-columns: 120px 1fr; }
+      label{ font-size: 16px; }
+      input{ font-size: 18px; padding: 14px 12px; }
+      .btn{ min-width: 0; width: 100%; }
+      .btnRow{ justify-content: stretch; }
+      ul{ font-size: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <div class="heroInner wrap">
+      <div class="logoFrame">
+        <!-- Put pk-logo.png in the same folder as this html file -->
+        <img src="pk-logo.png" alt="PK Logo">
+      </div>
+      <h1 class="heroTitle">Combat Calculator</h1>
+    </div>
+  </div>
+
+  <div class="content wrap">
+    <div class="panel">
+      <div class="form">
+        <div class="row"><label for="atk">Attack:</label><input id="atk" inputmode="numeric" pattern="[0-9]*" value="66"></div>
+        <div class="row"><label for="str">Strength:</label><input id="str" inputmode="numeric" pattern="[0-9]*" value="15"></div>
+        <div class="row"><label for="def">Defence:</label><input id="def" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="hp">Hitpoints:</label><input id="hp" inputmode="numeric" pattern="[0-9]*" value="18"></div>
+        <div class="row"><label for="rng">Ranged:</label><input id="rng" inputmode="numeric" pattern="[0-9]*" value="14"></div>
+        <div class="row"><label for="mag">Magic:</label><input id="mag" inputmode="numeric" pattern="[0-9]*" value="51"></div>
+        <div class="row"><label for="pray">Prayer:</label><input id="pray" inputmode="numeric" pattern="[0-9]*" value="43"></div>
+
+        <div class="btnRow">
+          <button class="btn" id="calcBtn">Calculate Level</button>
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div class="result" id="result" style="display:none;">
+          <div class="bigLine" id="combatLine"></div>
+          <div class="sub" id="nextLine"></div>
+          <ul id="needList"></ul>
+
+          <div class="hint">
+            Uses official OSRS combat formula:
+            base = 0.25 × (Defence + Hitpoints + floor(Prayer/2))
+            combat = base + max(
+              0.325×(Attack+Strength),
+              0.325×(Ranged + floor(Ranged/2)),
+              0.325×(Magic + floor(Magic/2))
+            )
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function intFrom(id){
+    const raw = document.getElementById(id).value.trim();
+    if(!/^\d+$/.test(raw)) return NaN;
+    return Number(raw);
+  }
+
+  function fmt3(n){
+    const s = n.toFixed(3);
+    return s.replace(/\.?0+$/, "");
+  }
+
+  function validate(s){
+    const keys = ["atk","str","def","hp","rng","mag","pray"];
+    for(const k of keys){
+      if(!Number.isFinite(s[k])) return k.toUpperCase() + " must be a whole number.";
+      if(s[k] < 1 || s[k] > 99) return k.toUpperCase() + " must be between 1 and 99.";
+    }
+    return null;
+  }
+
+  function combatFrom(s){
+    const base  = 0.25 * (s.def + s.hp + Math.floor(s.pray / 2));
+    const melee = 0.325 * (s.atk + s.str);
+    const ranged= 0.325 * (s.rng + Math.floor(s.rng / 2));
+    const magic = 0.325 * (s.mag + Math.floor(s.mag / 2));
+    const top = Math.max(melee, ranged, magic);
+
+    let type = "Warrior";
+    if(top === ranged) type = "Ranger";
+    if(top === magic)  type = "Mage";
+
+    return { combat: base + top, type };
+  }
+
+  function minIncreaseToReachTargetFloor(baseStats, key, targetFloor){
+    const current = baseStats[key];
+    for(let inc = 1; inc <= (99 - current); inc++){
+      const test = { ...baseStats, [key]: current + inc };
+      if(Math.floor(combatFrom(test).combat) >= targetFloor) return inc;
+    }
+    return null;
+  }
+
+  function computeNeeds(stats){
+    const now = combatFrom(stats);
+    const currentFloor = Math.floor(now.combat);
+    const targetFloor = currentFloor + 1;
+
+    const atkNeed  = minIncreaseToReachTargetFloor(stats, "atk",  targetFloor);
+    const strNeed  = minIncreaseToReachTargetFloor(stats, "str",  targetFloor);
+    const defNeed  = minIncreaseToReachTargetFloor(stats, "def",  targetFloor);
+    const hpNeed   = minIncreaseToReachTargetFloor(stats, "hp",   targetFloor);
+    const rngNeed  = minIncreaseToReachTargetFloor(stats, "rng",  targetFloor);
+    const magNeed  = minIncreaseToReachTargetFloor(stats, "mag",  targetFloor);
+    const prayNeed = minIncreaseToReachTargetFloor(stats, "pray", targetFloor);
+
+    const atkOrStr = (atkNeed === null && strNeed === null) ? null : Math.min(atkNeed ?? 999, strNeed ?? 999);
+    const hpOrDef  = (hpNeed  === null && defNeed === null) ? null : Math.min(hpNeed  ?? 999, defNeed ?? 999);
+
+    return {
+      now, currentFloor, targetFloor,
+      atkNeed, strNeed, defNeed, hpNeed, rngNeed, magNeed, prayNeed,
+      atkOrStr, hpOrDef
+    };
+  }
+
+  function showError(msg){
+    const e = document.getElementById("error");
+    e.textContent = msg;
+    e.style.display = "block";
+    document.getElementById("result").style.display = "none";
+  }
+
+  function clearError(){
+    const e = document.getElementById("error");
+    e.textContent = "";
+    e.style.display = "none";
+  }
+
+  function addLine(listEl, label, val){
+    const li = document.createElement("li");
+    li.textContent = (val === null) ? (label + ": N/A") : (label + ": " + val);
+    listEl.appendChild(li);
+  }
+
+  function calculate(){
+    clearError();
+
+    const stats = {
+      atk: intFrom("atk"),
+      str: intFrom("str"),
+      def: intFrom("def"),
+      hp:  intFrom("hp"),
+      rng: intFrom("rng"),
+      mag: intFrom("mag"),
+      pray:intFrom("pray")
+    };
+
+    const err = validate(stats);
+    if(err) return showError(err);
+
+    const info = computeNeeds(stats);
+
+    // Big output line exactly like the screenshot style
+    document.getElementById("combatLine").textContent =
+      "Combat Level: " + fmt3(info.now.combat) + ", Type: " + info.now.type;
+
+    document.getElementById("nextLine").textContent =
+      "To reach level " + info.targetFloor + ", you can gain one of the following:";
+
+    // CRITICAL: show how many additional levels in each combat skill
+    const list = document.getElementById("needList");
+    list.innerHTML = "";
+
+    // Combined convenience lines (matches your screenshot)
+    addLine(list, "Attack or Strength", info.atkOrStr);
+    addLine(list, "Hitpoints or Defence", info.hpOrDef);
+
+    // Individual skill lines (this is the “each combat skill” requirement)
+    addLine(list, "Attack", info.atkNeed);
+    addLine(list, "Strength", info.strNeed);
+    addLine(list, "Defence", info.defNeed);
+    addLine(list, "Hitpoints", info.hpNeed);
+    addLine(list, "Ranged", info.rngNeed);
+    addLine(list, "Magic", info.magNeed);
+    addLine(list, "Prayer", info.prayNeed);
+
+    document.getElementById("result").style.display = "block";
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+
+  // Auto-run once so it behaves like the tool in your screenshot
+  calculate();
+</script>
+</body>
+</html>
