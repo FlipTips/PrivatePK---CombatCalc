@@ -1,0 +1,14 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#667eea" stroke="#764ba2" stroke-width="5"/>
+  
+  <!-- Inner circle -->
+  <circle cx="100" cy="100" r="75" fill="#764ba2" opacity="0.8"/>
+  
+  <!-- PK text -->
+  <text x="100" y="120" font-family="Arial, sans-serif" font-size="60" font-weight="bold" text-anchor="middle" fill="white">PK</text>
+  
+  <!-- Decorative crossed swords -->
+  <line x1="40" y1="40" x2="160" y2="160" stroke="white" stroke-width="3" opacity="0.6"/>
+  <line x1="160" y1="40" x2="40" y2="160" stroke="white" stroke-width="3" opacity="0.6"/>
+</svg>
