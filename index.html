@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrivatePK - Combat Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PrivatePK – Combat Calculator</title>
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    <header class="header">
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="assets/images/logo.svg" alt="PrivatePK Logo" class="logo" id="logo">
-            </div>
-            <h1 class="header-title">Combat Calculator</h1>
+  <header class="header">
+    <img src="pk-logo.png" alt="PrivatePK Logo" class="logo" />
+    <h1 class="header-title">PrivatePK Combat Calculator</h1>
+  </header>
+
+  <main class="main-content">
+    <div class="panel">
+      <div class="form">
+        <div class="row"><label>Attack</label><input id="atk" value="1" /></div>
+        <div class="row"><label>Strength</label><input id="str" value="1" /></div>
+        <div class="row"><label>Defence</label><input id="def" value="1" /></div>
+        <div class="row"><label>Hitpoints</label><input id="hp" value="10" /></div>
+        <div class="row"><label>Ranged</label><input id="rng" value="1" /></div>
+        <div class="row"><label>Magic</label><input id="mag" value="1" /></div>
+        <div class="row"><label>Prayer</label><input id="pray" value="1" /></div>
+
+        <div class="btnRow">
+          <button id="calcBtn" class="btn">Calculate Combat</button>
         </div>
-    </header>
-    
-    <main class="main-content">
-        <div class="calculator-container">
-            <h2>Welcome to PrivatePK Combat Calculator</h2>
-            <p>Calculate your combat stats and damage efficiently.</p>
-            <!-- Calculator content will go here -->
-        </div>
-    </main>
-    
-    <script src="script.js"></script>
+      </div>
+
+      <div id="result" class="result" style="display:none;">
+        <div class="bigLine" id="combatLine"></div>
+        <div class="sub" id="nextLine"></div>
+        <ul id="needList"></ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
