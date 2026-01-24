@@ -157,6 +157,8 @@
       font-size: 18px;
       color: var(--muted);
       letter-spacing: .2px;
+      display: flex;
+      align-items: center;
     }
 
     input{
@@ -174,6 +176,14 @@
     input:focus{
       border-color: rgba(242,193,78,.60);
       box-shadow: 0 0 0 3px rgba(242,193,78,.12);
+    }
+
+    /* Icon style for skill icons */
+    .icon{
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      vertical-align: middle;
     }
 
     .btnRow{
@@ -293,13 +303,13 @@
   <div class="content wrap">
     <div class="panel">
       <div class="form">
-        <div class="row"><label for="atk">Attack:</label><input id="atk" inputmode="numeric" pattern="[0-9]*" value="66"></div>
-        <div class="row"><label for="str">Strength:</label><input id="str" inputmode="numeric" pattern="[0-9]*" value="15"></div>
-        <div class="row"><label for="def">Defence:</label><input id="def" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="hp">Hitpoints:</label><input id="hp" inputmode="numeric" pattern="[0-9]*" value="18"></div>
-        <div class="row"><label for="rng">Ranged:</label><input id="rng" inputmode="numeric" pattern="[0-9]*" value="14"></div>
-        <div class="row"><label for="mag">Magic:</label><input id="mag" inputmode="numeric" pattern="[0-9]*" value="51"></div>
-        <div class="row"><label for="pray">Prayer:</label><input id="pray" inputmode="numeric" pattern="[0-9]*" value="43"></div>
+        <div class="row"><label for="atk"><img src="assets/images/atk.png" class="icon" alt="Attack Icon"> Attack:</label><input id="atk" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="str"><img src="assets/images/str.png" class="icon" alt="Strength Icon"> Strength:</label><input id="str" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="def"><img src="assets/images/def.png" class="icon" alt="Defence Icon"> Defence:</label><input id="def" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="hp"><img src="assets/images/hp.png" class="icon" alt="Hitpoints Icon"> Hitpoints:</label><input id="hp" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="rng"><img src="assets/images/range.png" class="icon" alt="Ranged Icon"> Ranged:</label><input id="rng" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="mag"><img src="assets/images/mage.png" class="icon" alt="Magic Icon"> Magic:</label><input id="mag" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="pray"><img src="assets/images/pray.png" class="icon" alt="Prayer Icon"> Prayer:</label><input id="pray" inputmode="numeric" pattern="[0-9]*" value="1"></div>
 
         <div class="btnRow">
           <button class="btn" id="calcBtn">Calculate Level</button>
@@ -327,26 +337,6 @@
   </div>
 
 <script>
-  // Logo fallback chain:
-  // 1) pk-logo.png
-  // 2) assets/images/logo.svg
-  // 3) hide image (text remains)
-  (function logoFallback(){
-    const img = document.getElementById("brandLogo");
-    if(!img) return;
-
-    let triedSvg = false;
-
-    img.addEventListener("error", function(){
-      if(!triedSvg){
-        triedSvg = true;
-        img.src = "assets/images/logo.svg";
-        return;
-      }
-      img.style.display = "none";
-    });
-  })();
-
   function intFrom(id){
     const raw = document.getElementById(id).value.trim();
     if(!/^\d+$/.test(raw)) return NaN;
@@ -397,18 +387,20 @@
 
     const atkNeed  = minIncreaseToReachTargetFloor(stats, "atk",  targetFloor);
     const strNeed  = minIncreaseToReachTargetFloor(stats, "str",  targetFloor);
-    const hpNeed   = minIncreaseToReachTargetFloor(stats, "hp",   targetFloor);
     const defNeed  = minIncreaseToReachTargetFloor(stats, "def",  targetFloor);
-
+    const hpNeed   = minIncreaseToReachTargetFloor(stats, "hp",   targetFloor);
     const rngNeed  = minIncreaseToReachTargetFloor(stats, "rng",  targetFloor);
     const magNeed  = minIncreaseToReachTargetFloor(stats, "mag",  targetFloor);
     const prayNeed = minIncreaseToReachTargetFloor(stats, "pray", targetFloor);
 
-    // Keep ONLY the combined melee + base lines (your requirement)
     const atkOrStr = (atkNeed === null && strNeed === null) ? null : Math.min(atkNeed ?? 999, strNeed ?? 999);
     const hpOrDef  = (hpNeed  === null && defNeed === null) ? null : Math.min(hpNeed  ?? 999, defNeed ?? 999);
 
-    return { now, currentFloor, targetFloor, atkOrStr, hpOrDef, rngNeed, magNeed, prayNeed };
+    return {
+      now, currentFloor, targetFloor,
+      atkNeed, strNeed, defNeed, hpNeed, rngNeed, magNeed, prayNeed,
+      atkOrStr, hpOrDef
+    };
   }
 
   function showError(msg){
@@ -448,18 +440,26 @@
 
     const info = computeNeeds(stats);
 
+    // Big output line exactly like the screenshot style
     document.getElementById("combatLine").textContent =
       "Combat Level: " + fmt3(info.now.combat) + ", Type: " + info.now.type;
 
     document.getElementById("nextLine").textContent =
       "To reach level " + info.targetFloor + ", you can gain one of the following:";
 
+    // CRITICAL: show how many additional levels in each combat skill
     const list = document.getElementById("needList");
     list.innerHTML = "";
 
-    // EXACT OUTPUT FIELDS (as requested)
+    // Combined convenience lines (matches your screenshot)
     addLine(list, "Attack or Strength", info.atkOrStr);
     addLine(list, "Hitpoints or Defence", info.hpOrDef);
+
+    // Individual skill lines (this is the “each combat skill” requirement)
+    addLine(list, "Attack", info.atkNeed);
+    addLine(list, "Strength", info.strNeed);
+    addLine(list, "Defence", info.defNeed);
+    addLine(list, "Hitpoints", info.hpNeed);
     addLine(list, "Ranged", info.rngNeed);
     addLine(list, "Magic", info.magNeed);
     addLine(list, "Prayer", info.prayNeed);
@@ -468,6 +468,8 @@
   }
 
   document.getElementById("calcBtn").addEventListener("click", calculate);
+
+  // Auto-run once so it behaves like the tool in your screenshot
   calculate();
 </script>
 </body>
