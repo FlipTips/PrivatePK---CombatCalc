@@ -1,476 +1,474 @@
-<!doctype html><html lang="en">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PrivatePK - Combat Calculator</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PrivatePK - Combat Calculator</title>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap');
 
-    :root{
-      color-scheme: dark;
+    :root{
+      color-scheme: dark;
 
-      --void: #0E0F14;
-      --graphite: #161821;
+      --void: #0E0F14;
+      --graphite: #161821;
 
-      --panelA: rgba(27,29,39,.78);
-      --panelB: rgba(14,15,20,.92);
+      --panelA: rgba(27,29,39,.78);
+      --panelB: rgba(14,15,20,.92);
 
-      --purple: #5B2D8B;
-      --purple2: #3A1E52;
+      --purple: #5B2D8B;
+      --purple2: #3A1E52;
 
-      --gold: #F2C14E;
-      --goldSoft: rgba(242,193,78,.18);
+      --gold: #F2C14E;
+      --goldSoft: rgba(242,193,78,.18);
 
-      --text: #ECEAF0;
-      --muted: rgba(236,234,240,.72);
+      --text: #ECEAF0;
+      --muted: rgba(236,234,240,.72);
 
-      --border: rgba(185,175,199,.22);
-      --borderGold: rgba(242,193,78,.28);
-      --shadow: rgba(0,0,0,.62);
-    }
+      --border: rgba(185,175,199,.22);
+      --borderGold: rgba(242,193,78,.28);
+      --shadow: rgba(0,0,0,.62);
+    }
 
-    *{ box-sizing:border-box; }
+    *{ box-sizing:border-box; }
 
-    body{
-      margin:0;
-      font-family:-apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 50% -10%, rgba(91,45,139,.22), transparent 60%),
-        radial-gradient(900px 520px at 20% 15%, rgba(242,193,78,.08), transparent 60%),
-        radial-gradient(900px 520px at 80% 20%, rgba(91,45,139,.14), transparent 62%),
-        linear-gradient(180deg, var(--graphite) 0%, var(--void) 60%, #090A0F 100%);
-    }
+    body{
+      margin:0;
+      font-family:-apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(91,45,139,.22), transparent 60%),
+        radial-gradient(900px 520px at 20% 15%, rgba(242,193,78,.08), transparent 60%),
+        radial-gradient(900px 520px at 80% 20%, rgba(91,45,139,.14), transparent 62%),
+        linear-gradient(180deg, var(--graphite) 0%, var(--void) 60%, #090A0F 100%);
+    }
 
-    .wrap{ max-width: 920px; margin:0 auto; }
+    .wrap{ max-width: 920px; margin:0 auto; }
 
-    .hero{
-      position:relative;
-      padding: 26px 14px 18px;
-      border-bottom: 1px solid rgba(185,175,199,.18);
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.72)),
-        radial-gradient(1200px 420px at 50% 0%, rgba(91,45,139,.18), transparent 60%),
-        linear-gradient(180deg, rgba(58,30,82,.35), rgba(14,15,20,.92));
-    }
+    .hero{
+      position:relative;
+      padding: 26px 14px 18px;
+      border-bottom: 1px solid rgba(185,175,199,.18);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.72)),
+        radial-gradient(1200px 420px at 50% 0%, rgba(91,45,139,.18), transparent 60%),
+        linear-gradient(180deg, rgba(58,30,82,.35), rgba(14,15,20,.92));
+    }
 
-    .heroInner{
-      max-width: 920px;
-      margin: 0 auto;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 12px;
-    }
+    .heroInner{
+      max-width: 920px;
+      margin: 0 auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 12px;
+    }
 
-    .logoFrame{
-      width: min(680px, 94vw);
-      padding: 14px 16px;
-      border-radius: 16px;
-      background:
-        radial-gradient(900px 260px at 50% 35%, rgba(91,45,139,.26), transparent 62%),
-        radial-gradient(800px 240px at 50% 75%, rgba(242,193,78,.16), transparent 65%),
-        rgba(10,10,16,.35);
-      border: 1px solid rgba(242,193,78,.22);
-      box-shadow: 0 18px 70px var(--shadow);
-      backdrop-filter: blur(7px);
-    }
+    .logoFrame{
+      width: min(680px, 94vw);
+      padding: 14px 16px;
+      border-radius: 16px;
+      background:
+        radial-gradient(900px 260px at 50% 35%, rgba(91,45,139,.26), transparent 62%),
+        radial-gradient(800px 240px at 50% 75%, rgba(242,193,78,.16), transparent 65%),
+        rgba(10,10,16,.35);
+      border: 1px solid rgba(242,193,78,.22);
+      box-shadow: 0 18px 70px var(--shadow);
+      backdrop-filter: blur(7px);
+    }
 
-    .brandLockup{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 18px;
-    }
+    .brandLockup{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 18px;
+    }
 
-    .brandImg{
-      width:auto;
-      max-height: 220px;
-      display:block;
-      object-fit: contain;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.70));
-    }
+    .brandImg{
+      width:auto;
+      max-height: 220px;
+      display:block;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,.70));
+    }
 
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-      text-align:left;
-    }
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      text-align:left;
+    }
 
-    .brandName{
-      font-weight: 900;
-      font-size: clamp(26px, 4vw, 40px);
-      color: var(--gold);
-      letter-spacing: .3px;
-      text-shadow: 0 14px 40px rgba(0,0,0,.70);
-    }
+    .brandName{
+      font-weight: 900;
+      font-size: clamp(26px, 4vw, 40px);
+      color: var(--gold);
+      letter-spacing: .3px;
+      text-shadow: 0 14px 40px rgba(0,0,0,.70);
+    }
 
-    .brandTag{
-      font-weight: 700;
-      font-size: clamp(12px, 2vw, 16px);
-      color: rgba(236,234,240,.82);
-      letter-spacing: .2px;
-    }
+    .brandTag{
+      font-weight: 700;
+      font-size: clamp(12px, 2vw, 16px);
+      color: rgba(236,234,240,.82);
+      letter-spacing: .2px;
+    }
 
-    .heroTitle{
-      margin:0;
-      font-weight: 900;
-      font-size: clamp(36px, 7.6vw, 56px);
-      line-height: 1.05;
-      letter-spacing: .3px;
-      text-align:center;
-      color: var(--gold);
-      text-shadow: 0 14px 40px rgba(0,0,0,.70);
-    }
+    .heroTitle{
+      margin:0;
+      font-weight: 900;
+      font-size: clamp(36px, 7.6vw, 56px);
+      line-height: 1.05;
+      letter-spacing: .3px;
+      text-align:center;
+      color: var(--gold);
+      text-shadow: 0 14px 40px rgba(0,0,0,.70);
+    }
 
-    .content{ padding: 18px 14px 46px; }
+    .content{ padding: 18px 14px 46px; }
 
-    .panel{
-      border-radius: 16px;
-      padding: 18px;
-      background:
-        linear-gradient(180deg, var(--panelA), var(--panelB)),
-        radial-gradient(900px 360px at 50% 0%, rgba(91,45,139,.14), transparent 60%);
-      border: 1px solid rgba(185,175,199,.20);
-      box-shadow: 0 18px 70px rgba(0,0,0,.62);
-    }
+    .panel{
+      border-radius: 16px;
+      padding: 18px;
+      background:
+        linear-gradient(180deg, var(--panelA), var(--panelB)),
+        radial-gradient(900px 360px at 50% 0%, rgba(91,45,139,.14), transparent 60%);
+      border: 1px solid rgba(185,175,199,.20);
+      box-shadow: 0 18px 70px rgba(0,0,0,.62);
+    }
 
-    .form{
-      margin-top: 10px;
-      padding: 6px 0 0;
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
-    }
+    .form{
+      margin-top: 10px;
+      padding: 6px 0 0;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
 
-    .row{
-      display:grid;
-      grid-template-columns: 140px 1fr;
-      align-items:center;
-      gap: 12px;
-    }
+    .row{
+      display:grid;
+      grid-template-columns: 140px 1fr;
+      align-items:center;
+      gap: 12px;
+    }
 
-    label{
-      font-size: 18px;
-      color: var(--muted);
-      letter-spacing: .2px;
-    }
+    label{
+      font-size: 18px;
+      color: var(--muted);
+      letter-spacing: .2px;
+    }
 
-    input{
-      width:100%;
-      padding: 16px 14px;
-      font-size: 20px;
-      color: var(--text);
-      background: rgba(8,10,14,.55);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      outline:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
+    input{
+      width:100%;
+      padding: 16px 14px;
+      font-size: 20px;
+      color: var(--text);
+      background: rgba(8,10,14,.55);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
 
-    input:focus{
-      border-color: rgba(242,193,78,.60);
-      box-shadow: 0 0 0 3px rgba(242,193,78,.12);
-    }
+    input:focus{
+      border-color: rgba(242,193,78,.60);
+      box-shadow: 0 0 0 3px rgba(242,193,78,.12);
+    }
 
-    .btnRow{
-      display:flex;
-      justify-content:flex-end;
-      margin-top: 14px;
-    }
+    .btnRow{
+      display:flex;
+      justify-content:flex-end;
+      margin-top: 14px;
+    }
 
-    .btn{
-      padding: 14px 18px;
-      font-size: 20px;
-      cursor:pointer;
-      color: var(--text);
-      border-radius: 12px;
-      border: 1px solid rgba(242,193,78,.35);
-      background: linear-gradient(180deg, rgba(91,45,139,1), rgba(58,30,82,1));
-      box-shadow: 0 14px 34px rgba(0,0,0,.45), 0 0 22px rgba(91,45,139,.18);
-      min-width: 240px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
+    .btn{
+      padding: 14px 18px;
+      font-size: 20px;
+      cursor:pointer;
+      color: var(--text);
+      border-radius: 12px;
+      border: 1px solid rgba(242,193,78,.35);
+      background: linear-gradient(180deg, rgba(91,45,139,1), rgba(58,30,82,1));
+      box-shadow: 0 14px 34px rgba(0,0,0,.45), 0 0 22px rgba(91,45,139,.18);
+      min-width: 240px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
 
-    .btn:hover{ filter: brightness(1.05); }
-    .btn:active{ transform: translateY(1px); }
+    .btn:hover{ filter: brightness(1.05); }
+    .btn:active{ transform: translateY(1px); }
 
-    .error{
-      margin-top:14px;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid var(--borderGold);
-      background: rgba(242,193,78,.10);
-      color: rgba(255,231,170,.95);
-      display:none;
-      font-size:16px;
-    }
+    .error{
+      margin-top:14px;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--borderGold);
+      background: rgba(242,193,78,.10);
+      color: rgba(255,231,170,.95);
+      display:none;
+      font-size:16px;
+    }
 
-    /* RESULT TYPOGRAPHY: Cinzel */
-    .result{
-      margin-top: 26px;
-      padding-top: 8px;
-      font-family: 'Cinzel', serif;
-    }
+    /* RESULT TYPOGRAPHY: Cinzel */
+    .result{
+      margin-top: 26px;
+      padding-top: 8px;
+      font-family: 'Cinzel', serif;
+    }
 
-    .bigLine{
-      font-size: clamp(40px, 7.6vw, 64px);
-      font-weight: 800;
-      line-height: 1.03;
-      margin: 0 0 14px 0;
-      color: var(--gold);
-      letter-spacing: .6px;
-      text-shadow: 0 14px 40px rgba(0,0,0,.70);
-    }
+    .bigLine{
+      font-size: clamp(40px, 7.6vw, 64px);
+      font-weight: 800;
+      line-height: 1.03;
+      margin: 0 0 14px 0;
+      color: var(--gold);
+      letter-spacing: .6px;
+      text-shadow: 0 14px 40px rgba(0,0,0,.70);
+    }
 
-    .sub{
-      font-size: 22px;
-      opacity: .92;
-      margin: 0 0 12px 0;
-      color: rgba(236,234,240,.88);
-      letter-spacing: .4px;
-    }
+    .sub{
+      font-size: 22px;
+      opacity: .92;
+      margin: 0 0 12px 0;
+      color: rgba(236,234,240,.88);
+      letter-spacing: .4px;
+    }
 
-    ul{
-      margin: 10px 0 0 28px;
-      font-size: 22px;
-      line-height: 1.55;
-      color: rgba(236,234,240,.92);
-      font-family: 'Cinzel', serif;
-    }
+    ul{
+      margin: 10px 0 0 28px;
+      font-size: 22px;
+      line-height: 1.55;
+      color: rgba(236,234,240,.92);
+      font-family: 'Cinzel', serif;
+    }
 
-    .hint{
-      margin-top: 14px;
-      opacity: .72;
-      font-size: 13px;
-      line-height: 1.35;
-      color: rgba(236,234,240,.72);
-      font-family: -apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-    }
+    .hint{
+      margin-top: 14px;
+      opacity: .72;
+      font-size: 13px;
+      line-height: 1.35;
+      color: rgba(236,234,240,.72);
+      font-family: -apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    }
 
-    @media (max-width: 560px){
-      .row{ grid-template-columns: 120px 1fr; }
-      label{ font-size: 16px; }
-      input{ font-size: 18px; padding: 14px 12px; }
-      .btn{ min-width: 0; width: 100%; }
-      .btnRow{ justify-content: stretch; }
+    @media (max-width: 560px){
+      .row{ grid-template-columns: 120px 1fr; }
+      label{ font-size: 16px; }
+      input{ font-size: 18px; padding: 14px 12px; }
+      .btn{ min-width: 0; width: 100%; }
+      .btnRow{ justify-content: stretch; }
 
-      .brandLockup{
-        flex-direction:column;
-        gap: 10px;
-      }
-      .brandText{
-        text-align:center;
-        align-items:center;
-      }
-      .brandImg{ max-height: 170px; }
-      ul{ font-size: 20px; }
-    }
-  </style>
+      .brandLockup{
+        flex-direction:column;
+        gap: 10px;
+      }
+      .brandText{
+        text-align:center;
+        align-items:center;
+      }
+      .brandImg{ max-height: 170px; }
+      ul{ font-size: 20px; }
+    }
+  </style>
 </head>
 
 <body>
-  <div class="hero">
-    <div class="heroInner wrap">
-      <div class="logoFrame">
-        <div class="brandLockup">
-          <img id="brandLogo" class="brandImg" src="pk-logo.png" alt="PrivatePK Logo">
-          <div class="brandText">
-            <div class="brandName">PrivatePK</div>
-            <div class="brandTag">OSRS Pure Specific Combat Calculator</div>
-          </div>
-        </div>
-      </div>
+  <div class="hero">
+    <div class="heroInner wrap">
+      <div class="logoFrame">
+        <div class="brandLockup">
+          <img id="brandLogo" class="brandImg" src="pk-logo.png" alt="PrivatePK Logo">
+          <div class="brandText">
+            <div class="brandName">PrivatePK</div>
+            <div class="brandTag">OSRS Pure Specific Combat Calculator</div>
+          </div>
+        </div>
+      </div>
 
-      <h1 class="heroTitle">Combat Calculator</h1>
-    </div>
-  </div>
+      <h1 class="heroTitle">Combat Calculator</h1>
+    </div>
+  </div>
 
-  <div class="content wrap">
-    <div class="panel">
-      <div class="form">
-        <div class="row"><label for="atk">Attack:</label><input id="atk" inputmode="numeric" pattern="[0-9]*" value="66"></div>
-        <div class="row"><label for="str">Strength:</label><input id="str" inputmode="numeric" pattern="[0-9]*" value="15"></div>
-        <div class="row"><label for="def">Defence:</label><input id="def" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="hp">Hitpoints:</label><input id="hp" inputmode="numeric" pattern="[0-9]*" value="18"></div>
-        <div class="row"><label for="rng">Ranged:</label><input id="rng" inputmode="numeric" pattern="[0-9]*" value="14"></div>
-        <div class="row"><label for="mag">Magic:</label><input id="mag" inputmode="numeric" pattern="[0-9]*" value="51"></div>
-        <div class="row"><label for="pray">Prayer:</label><input id="pray" inputmode="numeric" pattern="[0-9]*" value="43"></div>
+  <div class="content wrap">
+    <div class="panel">
+      <div class="form">
+        <div class="row"><label for="atk">Attack:</label><input id="atk" inputmode="numeric" pattern="[0-9]*" value="66"></div>
+        <div class="row"><label for="str">Strength:</label><input id="str" inputmode="numeric" pattern="[0-9]*" value="15"></div>
+        <div class="row"><label for="def">Defence:</label><input id="def" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+        <div class="row"><label for="hp">Hitpoints:</label><input id="hp" inputmode="numeric" pattern="[0-9]*" value="18"></div>
+        <div class="row"><label for="rng">Ranged:</label><input id="rng" inputmode="numeric" pattern="[0-9]*" value="14"></div>
+        <div class="row"><label for="mag">Magic:</label><input id="mag" inputmode="numeric" pattern="[0-9]*" value="51"></div>
+        <div class="row"><label for="pray">Prayer:</label><input id="pray" inputmode="numeric" pattern="[0-9]*" value="43"></div>
 
-        <div class="btnRow">
-          <button class="btn" id="calcBtn">Calculate Level</button>
-        </div>
+        <div class="btnRow">
+          <button class="btn" id="calcBtn">Calculate Level</button>
+        </div>
 
-        <div id="error" class="error"></div>
+        <div id="error" class="error"></div>
 
-        <div class="result" id="result" style="display:none;">
-          <div class="bigLine" id="combatLine"></div>
-          <div class="sub" id="nextLine"></div>
-          <ul id="needList"></ul>
+        <div class="result" id="result" style="display:none;">
+          <div class="bigLine" id="combatLine"></div>
+          <div class="sub" id="nextLine"></div>
+          <ul id="needList"></ul>
 
-          <div class="hint">
-            Uses official OSRS combat formula:
-            base = 0.25 × (Defence + Hitpoints + floor(Prayer/2))
-            combat = base + max(
-              0.325×(Attack+Strength),
-              0.325×(Ranged + floor(Ranged/2)),
-              0.325×(Magic + floor(Magic/2))
-            )
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          <div class="hint">
+            Uses official OSRS combat formula:
+            base = 0.25 × (Defence + Hitpoints + floor(Prayer/2))
+            combat = base + max(
+              0.325×(Attack+Strength),
+              0.325×(Ranged + floor(Ranged/2)),
+              0.325×(Magic + floor(Magic/2))
+            )
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
-  // Logo fallback chain:
-  // 1) pk-logo.png
-  // 2) assets/images/logo.svg
-  // 3) hide image (text remains)
-  (function logoFallback(){
-    const img = document.getElementById("brandLogo");
-    if(!img) return;
+  // Logo fallback chain:
+  // 1) pk-logo.png
+  // 2) assets/images/logo.svg
+  // 3) hide image (text remains)
+  (function logoFallback(){
+    const img = document.getElementById("brandLogo");
+    if(!img) return;
 
-    let triedSvg = false;
+    let triedSvg = false;
 
-    img.addEventListener("error", function(){
-      if(!triedSvg){
-        triedSvg = true;
-        img.src = "assets/images/logo.svg";
-        return;
-      }
-      img.style.display = "none";
-    });
-  })();
+    img.addEventListener("error", function(){
+      if(!triedSvg){
+        triedSvg = true;
+        img.src = "assets/images/logo.svg";
+        return;
+      }
+      img.style.display = "none";
+    });
+  })();
 
-  function intFrom(id){
-    const raw = document.getElementById(id).value.trim();
-    if(!/^\d+$/.test(raw)) return NaN;
-    return Number(raw);
-  }
+  function intFrom(id){
+    const raw = document.getElementById(id).value.trim();
+    if(!/^\d+$/.test(raw)) return NaN;
+    return Number(raw);
+  }
 
-  function fmt3(n){
-    const s = n.toFixed(3);
-    return s.replace(/\.?0+$/, "");
-  }
+  function fmt3(n){
+    const s = n.toFixed(3);
+    return s.replace(/\.?0+$/, "");
+  }
 
-  function validate(s){
-    const keys = ["atk","str","def","hp","rng","mag","pray"];
-    for(const k of keys){
-      if(!Number.isFinite(s[k])) return k.toUpperCase() + " must be a whole number.";
-      if(s[k] < 1 || s[k] > 99) return k.toUpperCase() + " must be between 1 and 99.";
-    }
-    return null;
-  }
+  function validate(s){
+    const keys = ["atk","str","def","hp","rng","mag","pray"];
+    for(const k of keys){
+      if(!Number.isFinite(s[k])) return k.toUpperCase() + " must be a whole number.";
+      if(s[k] < 1 || s[k] > 99) return k.toUpperCase() + " must be between 1 and 99.";
+    }
+    return null;
+  }
 
-  function combatFrom(s){
-    const base  = 0.25 * (s.def + s.hp + Math.floor(s.pray / 2));
-    const melee = 0.325 * (s.atk + s.str);
-    const ranged= 0.325 * (s.rng + Math.floor(s.rng / 2));
-    const magic = 0.325 * (s.mag + Math.floor(s.mag / 2));
-    const top = Math.max(melee, ranged, magic);
+  function combatFrom(s){
+    const base  = 0.25 * (s.def + s.hp + Math.floor(s.pray / 2));
+    const melee = 0.325 * (s.atk + s.str);
+    const ranged= 0.325 * (s.rng + Math.floor(s.rng / 2));
+    const magic = 0.325 * (s.mag + Math.floor(s.mag / 2));
+    const top = Math.max(melee, ranged, magic);
 
-    let type = "Warrior";
-    if(top === ranged) type = "Ranger";
-    if(top === magic)  type = "Mage";
+    let type = "Warrior";
+    if(top === ranged) type = "Ranger";
+    if(top === magic)  type = "Mage";
 
-    return { combat: base + top, type };
-  }
+    return { combat: base + top, type };
+  }
 
-  function minIncreaseToReachTargetFloor(baseStats, key, targetFloor){
-    const current = baseStats[key];
-    for(let inc = 1; inc <= (99 - current); inc++){
-      const test = { ...baseStats, [key]: current + inc };
-      if(Math.floor(combatFrom(test).combat) >= targetFloor) return inc;
-    }
-    return null;
-  }
+  function minIncreaseToReachTargetFloor(baseStats, key, targetFloor){
+    const current = baseStats[key];
+    for(let inc = 1; inc <= (99 - current); inc++){
+      const test = { ...baseStats, [key]: current + inc };
+      if(Math.floor(combatFrom(test).combat) >= targetFloor) return inc;
+    }
+    return null;
+  }
 
-  function computeNeeds(stats){
-    const now = combatFrom(stats);
-    const currentFloor = Math.floor(now.combat);
-    const targetFloor = currentFloor + 1;
+  function computeNeeds(stats){
+    const now = combatFrom(stats);
+    const currentFloor = Math.floor(now.combat);
+    const targetFloor = currentFloor + 1;
 
-    const atkNeed  = minIncreaseToReachTargetFloor(stats, "atk",  targetFloor);
-    const strNeed  = minIncreaseToReachTargetFloor(stats, "str",  targetFloor);
-    const hpNeed   = minIncreaseToReachTargetFloor(stats, "hp",   targetFloor);
-    const defNeed  = minIncreaseToReachTargetFloor(stats, "def",  targetFloor);
+    const atkNeed  = minIncreaseToReachTargetFloor(stats, "atk",  targetFloor);
+    const strNeed  = minIncreaseToReachTargetFloor(stats, "str",  targetFloor);
+    const hpNeed   = minIncreaseToReachTargetFloor(stats, "hp",   targetFloor);
+    const defNeed  = minIncreaseToReachTargetFloor(stats, "def",  targetFloor);
 
-    const rngNeed  = minIncreaseToReachTargetFloor(stats, "rng",  targetFloor);
-    const magNeed  = minIncreaseToReachTargetFloor(stats, "mag",  targetFloor);
-    const prayNeed = minIncreaseToReachTargetFloor(stats, "pray", targetFloor);
+    const rngNeed  = minIncreaseToReachTargetFloor(stats, "rng",  targetFloor);
+    const magNeed  = minIncreaseToReachTargetFloor(stats, "mag",  targetFloor);
+    const prayNeed = minIncreaseToReachTargetFloor(stats, "pray", targetFloor);
 
-    // Keep ONLY the combined melee + base lines (your requirement)
-    const atkOrStr = (atkNeed === null && strNeed === null) ? null : Math.min(atkNeed ?? 999, strNeed ?? 999);
-    const hpOrDef  = (hpNeed  === null && defNeed === null) ? null : Math.min(hpNeed  ?? 999, defNeed ?? 999);
+    // Keep ONLY the combined melee + base lines (your requirement)
+    const atkOrStr = (atkNeed === null && strNeed === null) ? null : Math.min(atkNeed ?? 999, strNeed ?? 999);
+    const hpOrDef  = (hpNeed  === null && defNeed === null) ? null : Math.min(hpNeed  ?? 999, defNeed ?? 999);
 
-    return { now, currentFloor, targetFloor, atkOrStr, hpOrDef, rngNeed, magNeed, prayNeed };
-  }
+    return { now, currentFloor, targetFloor, atkOrStr, hpOrDef, rngNeed, magNeed, prayNeed };
+  }
 
-  function showError(msg){
-    const e = document.getElementById("error");
-    e.textContent = msg;
-    e.style.display = "block";
-    document.getElementById("result").style.display = "none";
-  }
+  function showError(msg){
+    const e = document.getElementById("error");
+    e.textContent = msg;
+    e.style.display = "block";
+    document.getElementById("result").style.display = "none";
+  }
 
-  function clearError(){
-    const e = document.getElementById("error");
-    e.textContent = "";
-    e.style.display = "none";
-  }
+  function clearError(){
+    const e = document.getElementById("error");
+    e.textContent = "";
+    e.style.display = "none";
+  }
 
-  function addLine(listEl, label, val){
-    const li = document.createElement("li");
-    li.textContent = (val === null) ? (label + ": N/A") : (label + ": " + val);
-    listEl.appendChild(li);
-  }
+  function addLine(listEl, label, val){
+    const li = document.createElement("li");
+    li.textContent = (val === null) ? (label + ": N/A") : (label + ": " + val);
+    listEl.appendChild(li);
+  }
 
-  function calculate(){
-    clearError();
+  function calculate(){
+    clearError();
 
-    const stats = {
-      atk: intFrom("atk"),
-      str: intFrom("str"),
-      def: intFrom("def"),
-      hp:  intFrom("hp"),
-      rng: intFrom("rng"),
-      mag: intFrom("mag"),
-      pray:intFrom("pray")
-    };
+    const stats = {
+      atk: intFrom("atk"),
+      str: intFrom("str"),
+      def: intFrom("def"),
+      hp:  intFrom("hp"),
+      rng: intFrom("rng"),
+      mag: intFrom("mag"),
+      pray:intFrom("pray")
+    };
 
-    const err = validate(stats);
-    if(err) return showError(err);
+    const err = validate(stats);
+    if(err) return showError(err);
 
-    const info = computeNeeds(stats);
+    const info = computeNeeds(stats);
 
-    document.getElementById("combatLine").textContent =
-      "Combat Level: " + fmt3(info.now.combat) + ", Type: " + info.now.type;
+    document.getElementById("combatLine").textContent =
+      "Combat Level: " + fmt3(info.now.combat) + ", Type: " + info.now.type;
 
-    document.getElementById("nextLine").textContent =
-      "To reach level " + info.targetFloor + ", you can gain one of the following:";
+    document.getElementById("nextLine").textContent =
+      "To reach level " + info.targetFloor + ", you can gain one of the following:";
 
-    const list = document.getElementById("needList");
-    list.innerHTML = "";
+    const list = document.getElementById("needList");
+    list.innerHTML = "";
 
-    // EXACT OUTPUT FIELDS (as requested)
-    addLine(list, "Attack or Strength", info.atkOrStr);
-    addLine(list, "Hitpoints or Defence", info.hpOrDef);
-    addLine(list, "Ranged", info.rngNeed);
-    addLine(list, "Magic", info.magNeed);
-    addLine(list, "Prayer", info.prayNeed);
+    // EXACT OUTPUT FIELDS (as requested)
+    addLine(list, "Attack or Strength", info.atkOrStr);
+    addLine(list, "Hitpoints or Defence", info.hpOrDef);
+    addLine(list, "Ranged", info.rngNeed);
+    addLine(list, "Magic", info.magNeed);
+    addLine(list, "Prayer", info.prayNeed);
 
-    document.getElementById("result").style.display = "block";
-  }
+    document.getElementById("result").style.display = "block";
+  }
 
-  document.getElementById("calcBtn").addEventListener("click", calculate);
-  calculate();
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+  calculate();
 </script>
 </body>
 </html>
-
-
-Show original message
