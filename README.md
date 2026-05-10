@@ -1,6 +1,14 @@
 # PrivatePK---CombatCalc
 
-A combat calculator application with a customizable header logo.
+A combat calculator application for Old School RuneScape pures, with a customizable header logo.
+
+## Live Site
+
+The combat calculator is hosted on GitHub Pages at:
+
+**https://TaughtMeNothing.github.io/PrivatePK---CombatCalc/**
+
+> **Note:** If you previously shared a link using an older GitHub username, that link will no longer work after a username change. Please update any bookmarks or shared links to use the URL above. In repositories where GitHub Pages is configured to use **GitHub Actions** as its source (see **Settings → Pages**), the site is automatically deployed on every push to `main`.
 
 ## How to Replace the Logo
 
