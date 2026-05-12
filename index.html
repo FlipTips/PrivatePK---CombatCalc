@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -10,41 +11,30 @@
 
     :root{
       color-scheme: dark;
-
       --void: #0E0F14;
       --graphite: #161821;
-
       --panelA: rgba(27,29,39,.78);
       --panelB: rgba(14,15,20,.92);
-
       --purple: #5B2D8B;
       --purple2: #3A1E52;
-
       --gold: #F2C14E;
       --goldSoft: rgba(242,193,78,.18);
-
       --text: #ECEAF0;
       --muted: rgba(236,234,240,.72);
-
-      --border: rgba(185,175,199,.22);
-      --borderGold: rgba(242,193,78,.28);
-      --shadow: rgba(0,0,0,.62);
+      --border: rgba(185,175,199,.18);
+      --borderHover: rgba(185,175,199,.38);
+      --radius: 13px;
+      --shadow: 0 8px 40px rgba(0,0,0,.55);
     }
 
-    *{ box-sizing:border-box; }
+    *, *::before, *::after{ box-sizing: border-box; margin: 0; padding: 0; }
 
     body{
-      margin:0;
-      font-family:-apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 50% -10%, rgba(91,45,139,.22), transparent 60%),
-        radial-gradient(900px 520px at 20% 15%, rgba(242,193,78,.08), transparent 60%),
-        radial-gradient(900px 520px at 80% 20%, rgba(91,45,139,.14), transparent 62%),
-        linear-gradient(180deg, var(--graphite) 0%, var(--void) 60%, #090A0F 100%);
+      background: var(--void);
+      color: var(--text);
+      font-family: -apple-system,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      min-height: 100vh;
     }
-
-    .wrap{ max-width: 920px; margin:0 auto; }
 
     .hero{
       position:relative;
@@ -69,81 +59,135 @@
       width: min(680px, 94vw);
       padding: 14px 16px;
       border-radius: 16px;
+      border: 1px solid rgba(185,175,199,.13);
       background:
-        radial-gradient(900px 260px at 50% 35%, rgba(91,45,139,.26), transparent 62%),
         radial-gradient(800px 240px at 50% 75%, rgba(242,193,78,.16), transparent 65%),
-        rgba(10,10,16,.35);
-      border: 1px solid rgba(242,193,78,.22);
-      box-shadow: 0 18px 70px var(--shadow);
-      backdrop-filter: blur(7px);
-    }
-
-    .brandLockup{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap: 18px;
-    }
-
-    .brandImg{
-      width:auto;
-      max-height: 220px;
-      display:block;
-      object-fit: contain;
-      filter: drop-shadow(0 14px 30px rgba(0,0,0,.70));
-    }
-
-    .brandText{
+        linear-gradient(180deg, rgba(58,30,82,.42), rgba(14,15,20,.88));
       display:flex;
       flex-direction:column;
-      gap: 6px;
-      text-align:left;
+      align-items:center;
+      gap: 4px;
     }
 
     .brandName{
-      font-weight: 900;
-      font-size: clamp(26px, 4vw, 40px);
-      color: var(--gold);
-      letter-spacing: .3px;
-      text-shadow: 0 14px 40px rgba(0,0,0,.70);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 800;
+      letter-spacing: .04em;
+      background: linear-gradient(135deg, #F2C14E 0%, #E8A020 40%, #F2C14E 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .brandTag{
-      font-weight: 700;
-      font-size: clamp(12px, 2vw, 16px);
-      color: rgba(236,234,240,.82);
-      letter-spacing: .2px;
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(236,234,240,.52);
     }
 
     .heroTitle{
-      margin:0;
-      font-weight: 900;
-      font-size: clamp(36px, 7.6vw, 56px);
-      line-height: 1.05;
-      letter-spacing: .3px;
-      text-align:center;
+      font-family: 'Cinzel', serif;
+      font-size: clamp(13px, 2.8vw, 18px);
+      font-weight: 600;
+      letter-spacing: .08em;
+      color: rgba(236,234,240,.80);
+    }
+
+    .wrap{
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px 14px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* HISCORES LOOKUP */
+    .lookupPanel{
+      background: var(--panelA);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lookupTitle{
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
       color: var(--gold);
-      text-shadow: 0 14px 40px rgba(0,0,0,.70);
     }
 
-    .content{ padding: 18px 14px 46px; }
+    .lookupRow{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
+    .lookupInput{
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 16px;
+      color: var(--text);
+      background: rgba(8,10,14,.55);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: border-color .18s;
+    }
+
+    .lookupInput::placeholder{ color: rgba(236,234,240,.35); }
+    .lookupInput:focus{ border-color: var(--gold); }
+
+    .lookupBtn{
+      padding: 12px 20px;
+      font-size: 14px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--void);
+      background: linear-gradient(135deg, #F2C14E, #E8A020);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity .15s, transform .1s;
+    }
+
+    .lookupBtn:hover{ opacity: .88; }
+    .lookupBtn:active{ transform: scale(.97); }
+    .lookupBtn:disabled{ opacity: .45; cursor: not-allowed; }
+
+    .lookupStatus{
+      font-size: 13px;
+      min-height: 18px;
+      color: var(--muted);
+    }
+    .lookupStatus.ok{ color: #7fdd9a; }
+    .lookupStatus.err{ color: #f08080; }
+
+    /* PANELS */
     .panel{
-      border-radius: 16px;
-      padding: 18px;
-      background:
-        linear-gradient(180deg, var(--panelA), var(--panelB)),
-        radial-gradient(900px 360px at 50% 0%, rgba(91,45,139,.14), transparent 60%);
-      border: 1px solid rgba(185,175,199,.20);
-      box-shadow: 0 18px 70px rgba(0,0,0,.62);
+      background: var(--panelA);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px 24px;
     }
 
-    .form{
-      margin-top: 10px;
-      padding: 6px 0 0;
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
+    .panelTitle{
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
     }
 
     .row{
@@ -151,14 +195,23 @@
       grid-template-columns: 140px 1fr;
       align-items:center;
       gap: 12px;
+      margin-bottom: 14px;
     }
 
     label{
-      font-size: 18px;
+      font-size: 15px;
       color: var(--muted);
       letter-spacing: .2px;
       display: flex;
       align-items: center;
+      gap: 8px;
+    }
+
+    label img{
+      width: 22px;
+      height: 22px;
+      image-rendering: pixelated;
+      flex-shrink: 0;
     }
 
     input{
@@ -169,88 +222,108 @@
       background: rgba(8,10,14,.55);
       border: 1px solid var(--border);
       border-radius: 12px;
-      outline:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
     }
-
     input:focus{
-      border-color: rgba(242,193,78,.60);
-      box-shadow: 0 0 0 3px rgba(242,193,78,.12);
-    }
-
-    /* Icon style for skill icons */
-    .icon{
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
-      vertical-align: middle;
+      border-color: var(--purple);
+      box-shadow: 0 0 0 3px rgba(91,45,139,.22);
     }
 
     .btnRow{
       display:flex;
-      justify-content:flex-end;
-      margin-top: 14px;
+      gap: 12px;
+      margin-top: 6px;
+      justify-content: flex-start;
     }
 
     .btn{
-      padding: 14px 18px;
-      font-size: 20px;
-      cursor:pointer;
-      color: var(--text);
+      min-width: 160px;
+      padding: 15px 28px;
+      font-size: 16px;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: .06em;
+      border: none;
       border-radius: 12px;
-      border: 1px solid rgba(242,193,78,.35);
-      background: linear-gradient(180deg, rgba(91,45,139,1), rgba(58,30,82,1));
-      box-shadow: 0 14px 34px rgba(0,0,0,.45), 0 0 22px rgba(91,45,139,.18);
-      min-width: 240px;
-      font-weight: 800;
-      letter-spacing: .2px;
+      cursor: pointer;
+      transition: opacity .15s, transform .1s;
+    }
+    .btn:hover{ opacity: .88; }
+    .btn:active{ transform: scale(.97); }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, #7B3FBE, #4A1E7A);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(91,45,139,.38);
     }
 
-    .btn:hover{ filter: brightness(1.05); }
-    .btn:active{ transform: translateY(1px); }
-
-    .error{
-      margin-top:14px;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid var(--borderGold);
-      background: rgba(242,193,78,.10);
-      color: rgba(255,231,170,.95);
+    /* RESULT */
+    #result{
       display:none;
-      font-size:16px;
+      background: var(--panelB);
+      border: 1px solid rgba(242,193,78,.22);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
     }
 
-    /* RESULT TYPOGRAPHY: Cinzel */
-    .result{
-      margin-top: 26px;
-      padding-top: 8px;
+    .resultGrid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .resultCard{
+      background: rgba(27,29,39,.65);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display:flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .resultLabel{
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(236,234,240,.48);
+    }
+
+    .resultValue{
       font-family: 'Cinzel', serif;
-    }
-
-    .bigLine{
-      font-size: clamp(40px, 7.6vw, 64px);
+      font-size: 28px;
       font-weight: 800;
-      line-height: 1.03;
-      margin: 0 0 14px 0;
       color: var(--gold);
-      letter-spacing: .6px;
-      text-shadow: 0 14px 40px rgba(0,0,0,.70);
+      line-height: 1.1;
     }
 
-    .sub{
-      font-size: 22px;
-      opacity: .92;
-      margin: 0 0 12px 0;
-      color: rgba(236,234,240,.88);
-      letter-spacing: .4px;
-    }
-
-    ul{
-      margin: 10px 0 0 28px;
-      font-size: 22px;
+    .resultSub{
+      font-size: 13px;
+      color: var(--muted);
       line-height: 1.55;
-      color: rgba(236,234,240,.92);
-      font-family: 'Cinzel', serif;
+    }
+
+    .needList{
+      margin: 10px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display:flex;
+      flex-direction:column;
+      gap: 4px;
+    }
+
+    .needList li{
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    #errorMsg{
+      color: #f08080;
+      font-size: 15px;
+      margin-bottom: 10px;
+      display:none;
     }
 
     .hint{
@@ -264,210 +337,272 @@
 
     @media (max-width: 560px){
       .row{ grid-template-columns: 120px 1fr; }
-      label{ font-size: 16px; }
+      label{ font-size: 14px; }
       input{ font-size: 18px; padding: 14px 12px; }
       .btn{ min-width: 0; width: 100%; }
       .btnRow{ justify-content: stretch; }
-
-      .brandLockup{
-        flex-direction:column;
-        gap: 10px;
-      }
-      .brandText{
-        text-align:center;
-        align-items:center;
-      }
-      .brandImg{ max-height: 170px; }
-      ul{ font-size: 20px; }
+      .lookupRow{ flex-direction: column; }
+      .lookupBtn{ width: 100%; }
     }
   </style>
+
 </head>
-
 <body>
-  <div class="hero">
-    <div class="heroInner wrap">
-      <div class="logoFrame">
-        <div class="brandLockup">
-          <img id="brandLogo" class="brandImg" src="pk-logo.png" alt="PrivatePK Logo">
-          <div class="brandText">
-            <div class="brandName">Pure Authority</div>
-            <div class="brandTag">Combat Calculator</div>
-          </div>
-        </div>
-      </div>
 
+  <header class="hero">
+    <div class="heroInner">
+      <div class="logoFrame">
+        <div class="brandName">Pure Authority</div>
+        <div class="brandTag">Combat Calculator</div>
+      </div>
       <h1 class="heroTitle">Pure Authority — Combat Calculator</h1>
     </div>
+  </header>
+
+  <main class="wrap">
+
+```
+<!-- HISCORES LOOKUP -->
+<div class="lookupPanel">
+  <div class="lookupTitle">Hiscores Lookup</div>
+  <div class="lookupRow">
+    <input
+      class="lookupInput"
+      id="playerName"
+      type="text"
+      placeholder="Enter OSRS username..."
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <button class="lookupBtn" id="lookupBtn" onclick="lookupPlayer()">Look Up</button>
+  </div>
+  <div class="lookupStatus" id="lookupStatus"></div>
+</div>
+
+<!-- STATS INPUT -->
+<div class="panel">
+  <div class="panelTitle">Combat Stats</div>
+
+  <div id="errorMsg"></div>
+
+  <div class="row">
+    <label for="atk"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAAFVBMVEUAAAAAAAF1e3x6awlGPC+0qwZVXFpfKXj9AAAAAXRSTlMAQObYZgAAAGJJREFUeF61zMENgCAQRFG2Awa0AInxjoQCVDowNGD/RWhMcNaDR+f28pMxnMAquaAkQcvdYhr+TNMrHd9pbUkANz5Jcp2v1JTyzkNBqpGH2DIlXUkUyuIpX6DURwvwBIY7AZisDOeMoOV7AAAAAElFTkSuQmCC" alt="Attack" /> Attack</label>
+    <input id="atk" type="number" min="1" max="99" value="1" />
+  </div>
+  <div class="row">
+    <label for="str"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAUAgMAAAD5DFXkAAAADFBMVEUAAADBpHYAAAFGPC8vY/5LAAAAAXRSTlMAQObYZgAAAFdJREFUeF5tyCEOgCAYgNFvNA5i0Puw3wbRCzApbl7i7xY3TwQWj4FVsVteeDAA7AcYzWBnWem9BDq5EhrrjdaSUf+M7XzCunJipE4YFwPo8hG3hlv/eAEy3iAzOK0vJwAAAABJRU5ErkJggg==" alt="Strength" /> Strength</label>
+    <input id="str" type="number" min="1" max="99" value="1" />
+  </div>
+  <div class="row">
+    <label for="def"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAATBAMAAACEi/vCAAAAD1BMVEUAAACSmpV1e3xVXFoAAAHBAcSuAAAAAXRSTlMAQObYZgAAAEhJREFUeNpjcIECBwZnY2MlJUVBQRDLSElJCcpScSGGZQI2BBeLSFNYICwRBgYGZ7ALHBgYGFhArgIJgQXBQgwMLC4uLgwMDADuqxzhpiA+7QAAAABJRU5ErkJggg==" alt="Defence" /> Defence</label>
+    <input id="def" type="number" min="1" max="99" value="1" />
+  </div>
+  <div class="row">
+    <label for="hp"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAUBAMAAACUkLs9AAAAD1BMVEUAAADdTwEAAAF6PQmzOQNfjd9/AAAAAXRSTlMAQObYZgAAAGRJREFUeF6Vz9EJwCAMRdGHGwQ6gL46gZmgNPvP1NRo6G/zIVyORARI1n2WJsLKU5Ue4sNuqsNd5tito6KtcMo4viF/grlgVBTLAEq/1qMEQMtbL9mGSWYBQQFBGhAUP9tETngA+e8aT/vsk0QAAAAASUVORK5CYII=" alt="Hitpoints" /> Hitpoints</label>
+    <input id="hp" type="number" min="10" max="99" value="10" />
+  </div>
+  <div class="row">
+    <label for="rng"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXBAMAAAASBMmTAAAAElBMVEUAAAAAAAF6PQl1e3wJbAI1Lxvn8OCVAAAAAXRSTlMAQObYZgAAAJBJREFUeF49jdENwyAMRO82yJEyQL1BEnWASHQA1O4/S88h1F88PfwMApQWXFPEEvFcIBnCbxPKE6BfUgmtBpTdGwptMvBY0tfRWLeEbnEr1oi/Yndwqio5fasO6P7HVwYnfLYJVJWDAx6tZ1AJbO8zg8Vg8T0zeKVVm4HHOKpmj3W/yrSwGobjmHfmzKNzhB+ethFFd5FA4wAAAABJRU5ErkJggg==" alt="Ranged" /> Ranged</label>
+    <input id="rng" type="number" min="1" max="99" value="1" />
+  </div>
+  <div class="row">
+    <label for="mag"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAXBAMAAAAMzfkgAAAAElBMVEUAAAAbBpIAAAEABv56PQm0qwYDZfXfAAAAAXRSTlMAQObYZgAAAH1JREFUeF5N0NENAyEMA9CKDVw6wOERklugVRjh9l+lGHqk/iFPcpDgoRQe8/zB/wW3FFEtqw2e1dKAmsIQb1GyLD4btgTYsQXAb5FbipSXNmkvSjhZONfeA1d89BKCEdF7mA+p9op+Vb+lDJiaa5bWC1AFcoiYNv2UuKL5C5gvFkaJ5qUwAAAAAElFTkSuQmCC" alt="Magic" /> Magic</label>
+    <input id="mag" type="number" min="1" max="99" value="1" />
+  </div>
+  <div class="row">
+    <label for="pray"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXBAMAAAASBMmTAAAAD1BMVEUAAAC2zboAAAHh79eSmpW4ABp2AAAAAXRSTlMAQObYZgAAAGFJREFUeF6N0NEJwCAMBNCQDU46QNQuUDKC7j9TL5a2fgjt/XiPQCDKiMqUan+gtUxo6cXeYEuU3pDs7sQlZe9+UNxYnQnAjZN4MSZMCP3ZAGzRr2TAZAlFkjUkf146/84JpVkMess7DiAAAAAASUVORK5CYII=" alt="Prayer" /> Prayer</label>
+    <input id="pray" type="number" min="1" max="99" value="1" />
   </div>
 
-  <div class="content wrap">
-    <div class="panel">
-      <div class="form">
-        <div class="row"><label for="atk"><img src="assets/images/atk.png" class="icon" alt="Attack Icon"> Attack:</label><input id="atk" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="str"><img src="assets/images/str.png" class="icon" alt="Strength Icon"> Strength:</label><input id="str" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="def"><img src="assets/images/def.png" class="icon" alt="Defence Icon"> Defence:</label><input id="def" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="hp"><img src="assets/images/hp.png" class="icon" alt="Hitpoints Icon"> Hitpoints:</label><input id="hp" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="rng"><img src="assets/images/range.png" class="icon" alt="Ranged Icon"> Ranged:</label><input id="rng" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="mag"><img src="assets/images/mage.png" class="icon" alt="Magic Icon"> Magic:</label><input id="mag" inputmode="numeric" pattern="[0-9]*" value="1"></div>
-        <div class="row"><label for="pray"><img src="assets/images/pray.png" class="icon" alt="Prayer Icon"> Prayer:</label><input id="pray" inputmode="numeric" pattern="[0-9]*" value="1"></div>
+  <div class="btnRow">
+    <button class="btn btnPrimary" id="calcBtn">Calculate</button>
+  </div>
+</div>
 
-        <div class="btnRow">
-          <button class="btn" id="calcBtn">Calculate Level</button>
-        </div>
-
-        <div id="error" class="error"></div>
-
-        <div class="result" id="result" style="display:none;">
-          <div class="bigLine" id="combatLine"></div>
-          <div class="sub" id="nextLine"></div>
-          <ul id="needList"></ul>
-
-          <div class="hint">
-            Uses official OSRS combat formula:
-            base = 0.25 × (Defence + Hitpoints + floor(Prayer/2))
-            combat = base + max(
-              0.325×(Attack+Strength),
-              0.325×(Ranged + floor(Ranged/2)),
-              0.325×(Magic + floor(Magic/2))
-            )
-          </div>
-        </div>
+<!-- RESULT -->
+<div id="result">
+  <div class="resultGrid">
+    <div class="resultCard">
+      <div class="resultLabel">Combat Level</div>
+      <div class="resultValue" id="rCombat">—</div>
+      <div class="resultSub" id="rType">—</div>
+    </div>
+    <div class="resultCard">
+      <div class="resultLabel">To Next Level</div>
+      <div class="resultSub">
+        <ul class="needList" id="needList"></ul>
       </div>
     </div>
   </div>
+  <p class="hint">Combat level is calculated using the official OSRS formula.</p>
+</div>
+```
 
-<script>
-  function intFrom(id){
-    const raw = document.getElementById(id).value.trim();
-    if(!/^\d+$/.test(raw)) return NaN;
-    return Number(raw);
-  }
+  </main>
 
-  function fmt3(n){
-    const s = n.toFixed(3);
-    return s.replace(/\.?0+$/, "");
-  }
+  <script>
 
-  function validate(s){
-    const keys = ["atk","str","def","hp","rng","mag","pray"];
-    for(const k of keys){
-      if(!Number.isFinite(s[k])) return k.toUpperCase() + " must be a whole number.";
-      if(s[k] < 1 || s[k] > 99) return k.toUpperCase() + " must be between 1 and 99.";
+    async function lookupPlayer() {
+      const nameEl = document.getElementById('playerName');
+      const btn    = document.getElementById('lookupBtn');
+      const status = document.getElementById('lookupStatus');
+
+      const name = nameEl.value.trim();
+      if (!name) {
+        status.textContent = 'Please enter a username.';
+        status.className = 'lookupStatus err';
+        return;
+      }
+
+      btn.disabled = true;
+      status.className = 'lookupStatus';
+      status.textContent = 'Looking up ' + name + '...';
+
+      try {
+        const encoded = encodeURIComponent(name);
+        const res = await fetch(
+          'https://api.wiseoldman.net/v2/players/' + encoded,
+          { headers: { 'User-Agent': 'PureAuthority-CombatCalc/1.0' } }
+        );
+
+        if (!res.ok) {
+          if (res.status === 404) {
+            status.textContent = 'Player "' + name + '" not found on hiscores.';
+          } else {
+            status.textContent = 'API error (' + res.status + '). Try again.';
+          }
+          status.className = 'lookupStatus err';
+          btn.disabled = false;
+          return;
+        }
+
+        const data = await res.json();
+        const skills = data?.latestSnapshot?.data?.skills;
+
+        if (!skills) {
+          status.textContent = 'Could not read stats. Player may need to be tracked on WOM first.';
+          status.className = 'lookupStatus err';
+          btn.disabled = false;
+          return;
+        }
+
+        const get = (skill) => {
+          const lvl = skills[skill]?.level;
+          return (lvl && lvl > 0) ? lvl : 1;
+        };
+
+        document.getElementById('atk').value  = get('attack');
+        document.getElementById('str').value  = get('strength');
+        document.getElementById('def').value  = get('defence');
+        document.getElementById('hp').value   = Math.max(10, get('hitpoints'));
+        document.getElementById('rng').value  = get('ranged');
+        document.getElementById('mag').value  = get('magic');
+        document.getElementById('pray').value = get('prayer');
+
+        status.textContent = '✓ Stats loaded for ' + (data.displayName || name);
+        status.className = 'lookupStatus ok';
+
+        calculate();
+
+      } catch (err) {
+        status.textContent = 'Network error. Check connection and try again.';
+        status.className = 'lookupStatus err';
+      }
+
+      btn.disabled = false;
     }
-    return null;
-  }
 
-  function combatFrom(s){
-    const base  = 0.25 * (s.def + s.hp + Math.floor(s.pray / 2));
-    const melee = 0.325 * (s.atk + s.str);
-    const ranged= 0.325 * (s.rng + Math.floor(s.rng / 2));
-    const magic = 0.325 * (s.mag + Math.floor(s.mag / 2));
-    const top = Math.max(melee, ranged, magic);
+    document.getElementById('playerName').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') lookupPlayer();
+    });
 
-    let type = "Warrior";
-    if(top === ranged) type = "Ranger";
-    if(top === magic)  type = "Mage";
-
-    return { combat: base + top, type };
-  }
-
-  function minIncreaseToReachTargetFloor(baseStats, key, targetFloor){
-    const current = baseStats[key];
-    for(let inc = 1; inc <= (99 - current); inc++){
-      const test = { ...baseStats, [key]: current + inc };
-      if(Math.floor(combatFrom(test).combat) >= targetFloor) return inc;
+    function validate(s){
+      const keys = ["atk","str","def","hp","rng","mag","pray"];
+      for(const k of keys){
+        if(!Number.isFinite(s[k])) return k.toUpperCase() + " must be a whole number.";
+        if(s[k] < 1 || s[k] > 99) return k.toUpperCase() + " must be between 1 and 99.";
+      }
+      if(s.hp < 10) return "HP must be at least 10.";
+      return null;
     }
-    return null;
-  }
 
-  function computeNeeds(stats){
-    const now = combatFrom(stats);
-    const currentFloor = Math.floor(now.combat);
-    const targetFloor = currentFloor + 1;
+    function combatFrom(s){
+      const base  = 0.25 * (s.def + s.hp + Math.floor(s.pray / 2));
+      const melee = 0.325 * (s.atk + s.str);
+      const ranged= 0.325 * (s.rng + Math.floor(s.rng / 2));
+      const magic = 0.325 * (s.mag + Math.floor(s.mag / 2));
+      const top   = Math.max(melee, ranged, magic);
+      let type = "Warrior";
+      if(top === ranged) type = "Ranger";
+      if(top === magic)  type = "Mage";
+      return { combat: Math.floor(base + top), type };
+    }
 
-    const atkNeed  = minIncreaseToReachTargetFloor(stats, "atk",  targetFloor);
-    const strNeed  = minIncreaseToReachTargetFloor(stats, "str",  targetFloor);
-    const defNeed  = minIncreaseToReachTargetFloor(stats, "def",  targetFloor);
-    const hpNeed   = minIncreaseToReachTargetFloor(stats, "hp",   targetFloor);
-    const rngNeed  = minIncreaseToReachTargetFloor(stats, "rng",  targetFloor);
-    const magNeed  = minIncreaseToReachTargetFloor(stats, "mag",  targetFloor);
-    const prayNeed = minIncreaseToReachTargetFloor(stats, "pray", targetFloor);
+    function minIncreaseToReachTargetFloor(baseStats, key, targetFloor){
+      let s = {...baseStats};
+      for(let i = 1; i <= 99 - baseStats[key]; i++){
+        s[key] = baseStats[key] + i;
+        if(Math.floor(combatFrom(s).combat) >= targetFloor) return i;
+      }
+      return null;
+    }
 
-    const atkOrStr = (atkNeed === null && strNeed === null) ? null : Math.min(atkNeed ?? 999, strNeed ?? 999);
-    const hpOrDef  = (hpNeed  === null && defNeed === null) ? null : Math.min(hpNeed  ?? 999, defNeed ?? 999);
+    function calculate(){
+      const errEl = document.getElementById('errorMsg');
+      errEl.style.display = 'none';
 
-    return {
-      now, currentFloor, targetFloor,
-      atkNeed, strNeed, defNeed, hpNeed, rngNeed, magNeed, prayNeed,
-      atkOrStr, hpOrDef
-    };
-  }
+      const s = {};
+      for(const k of ["atk","str","def","hp","rng","mag","pray"]){
+        s[k] = parseInt(document.getElementById(k).value, 10);
+      }
 
-  function showError(msg){
-    const e = document.getElementById("error");
-    e.textContent = msg;
-    e.style.display = "block";
-    document.getElementById("result").style.display = "none";
-  }
+      const err = validate(s);
+      if(err){
+        errEl.textContent = err;
+        errEl.style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+        return;
+      }
 
-  function clearError(){
-    const e = document.getElementById("error");
-    e.textContent = "";
-    e.style.display = "none";
-  }
+      const { combat, type } = combatFrom(s);
+      const next = combat + 1;
 
-  function addLine(listEl, label, val){
-    const li = document.createElement("li");
-    li.textContent = (val === null) ? (label + ": N/A") : (label + ": " + val);
-    listEl.appendChild(li);
-  }
+      document.getElementById('rCombat').textContent = combat;
+      document.getElementById('rType').textContent   = type + ' build';
 
-  function calculate(){
-    clearError();
+      const list = document.getElementById("needList");
+      list.innerHTML = "";
 
-    const stats = {
-      atk: intFrom("atk"),
-      str: intFrom("str"),
-      def: intFrom("def"),
-      hp:  intFrom("hp"),
-      rng: intFrom("rng"),
-      mag: intFrom("mag"),
-      pray:intFrom("pray")
-    };
+      const addLine = (list, label, val) => {
+        if (val === null) return;
+        const li = document.createElement('li');
+        li.textContent = label + ': +' + val;
+        list.appendChild(li);
+      };
 
-    const err = validate(stats);
-    if(err) return showError(err);
+      addLine(list, "Attack or Strength", minIncreaseToReachTargetFloor(s, "atk", next) !== null
+        ? Math.min(
+            minIncreaseToReachTargetFloor(s, "atk", next) ?? 99,
+            minIncreaseToReachTargetFloor(s, "str", next) ?? 99
+          )
+        : null);
+      addLine(list, "Hitpoints or Defence", minIncreaseToReachTargetFloor(s, "hp", next) !== null
+        ? Math.min(
+            minIncreaseToReachTargetFloor(s, "hp", next) ?? 99,
+            minIncreaseToReachTargetFloor(s, "def", next) ?? 99
+          )
+        : null);
+      addLine(list, "Ranged", minIncreaseToReachTargetFloor(s, "rng", next));
+      addLine(list, "Magic",  minIncreaseToReachTargetFloor(s, "mag", next));
+      addLine(list, "Prayer", minIncreaseToReachTargetFloor(s, "pray", next));
 
-    const info = computeNeeds(stats);
+      document.getElementById("result").style.display = "block";
+    }
 
-    // Big output line exactly like the screenshot style
-    document.getElementById("combatLine").textContent =
-      "Combat Level: " + fmt3(info.now.combat) + ", Type: " + info.now.type;
+    document.getElementById("calcBtn").addEventListener("click", calculate);
+    calculate();
 
-    document.getElementById("nextLine").textContent =
-      "To reach level " + info.targetFloor + ", you can gain one of the following:";
+  </script>
 
-    // CRITICAL: show how many additional levels in each combat skill
-    const list = document.getElementById("needList");
-    list.innerHTML = "";
-
-    // Combined convenience lines (matches your screenshot)
-    addLine(list, "Attack or Strength", info.atkOrStr);
-    addLine(list, "Hitpoints or Defence", info.hpOrDef);
-
-    // Individual skill lines (this is the “each combat skill” requirement)
-    
-    addLine(list, "Ranged", info.rngNeed);
-    addLine(list, "Magic", info.magNeed);
-    addLine(list, "Prayer", info.prayNeed);
-
-    document.getElementById("result").style.display = "block";
-  }
-
-  document.getElementById("calcBtn").addEventListener("click", calculate);
-
-  // Auto-run once so it behaves like the tool in your screenshot
-  calculate();
-</script>
 </body>
 </html>
